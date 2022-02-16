@@ -30,4 +30,56 @@ public class TestLargeHtml extends InternalSelenseTestBase {
     String actualEndsWith = source.substring(index).toLowerCase();
     Assert.assertEquals("source doesn't end correctly", actualEndsWith, expectedEndsWith);
   }
+
+  @Test
+  public void testHtmlBodyFragment() {
+    selenium.open("test_large_html.html");
+    String source = selenium.getHtmlSource().trim();
+    String expectedEndsWith = "</body>";
+    int index = source.length() - expectedEndsWith.length();
+    String actualEndsWith = source.substring(index).toLowerCase();
+    Assert.assertEquals("source doesn't end correctly", actualEndsWith, expectedEndsWith);
+  }
+
+  @Test
+  public void testHtmlNavigationFragment() {
+    selenium.open("test_large_html.html");
+    String source = selenium.getHtmlSource().trim();
+    String expectedEndsWith = "</nav>";
+    int index = source.length() - expectedEndsWith.length();
+    String actualEndsWith = source.substring(index).toLowerCase();
+    Assert.assertEquals("source doesn't end correctly", actualEndsWith, expectedEndsWith);
+  }
+
+  @Test
+  public void testHtmlFooterFragment() {
+    selenium.open("test_large_html.html");
+    String source = selenium.getHtmlSource().trim();
+    String expectedEndsWith = "</footer>";
+    int index = source.length() - expectedEndsWith.length();
+    String actualEndsWith = source.substring(index).toLowerCase();
+    Assert.assertEquals("source doesn't end correctly", actualEndsWith, expectedEndsWith);
+  }
+
+  @Test
+  public void testHtmlMainFragment() {
+    selenium.open("test_large_html.html");
+    String source = selenium.getHtmlSource().trim();
+    String expectedEndsWith = "</main>";
+    int index = source.length() - expectedEndsWith.length();
+    String actualEndsWith = source.substring(index).toLowerCase();
+    Assert.assertEquals("source doesn't end correctly", actualEndsWith, expectedEndsWith);
+  }
+
+  @Test
+  public void testHtmlHeaderFragment() {
+    selenium.open("test_large_html.html");
+    String source = selenium.getHtmlSource().trim();
+    String expectedEndsWith = "</head>";
+    int index = source.length() - expectedEndsWith.length();
+    String actualEndsWith = source.substring(index).toLowerCase();
+    Assert.assertEquals("source doesn't end correctly", actualEndsWith, expectedEndsWith);
+  }
+
+
 }
