@@ -61,10 +61,6 @@ matrix:
     - env: MARIONETTE=1 SELENIUM_BROWSER=firefox NPM=test
       <<: *node
       <<: *firefox-latest
-    - env: MARIONETTE=1 MOZ_HEADLESS=1 BZL="test --test_tag_filters=firefox //javascript/atoms/... //javascript/selenium-atoms/... //javascript/webdriver/..."
-      <<: *java
-      <<: *firefox-latest
-
     - env: TOXENV=flake8
       <<: *python
       python: 3.7
