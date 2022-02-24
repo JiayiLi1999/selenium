@@ -1,5 +1,6 @@
 projectFilesBackup/
 *.iws
+.idea
 .DS_Store
 .svn
 .credentials.dat
@@ -121,3 +122,4 @@ bazel-testlogs
 /.vscode/
 /.scannerwork/
 /.bazelrc.local
+java/test/com/thoughtworks/selenium/webdriven/FiniteStateTest.java

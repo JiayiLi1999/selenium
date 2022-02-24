@@ -12,7 +12,7 @@
 <body>
 <H1>Page for Shadow DOM chromedriver tests</H1>
 The various sections are highlighted with colored borders to make it more obvious
-where each element comes from. Default to pushing the content off the first 
+where each element comes from. Default to pushing the content off the first
 screen, to test that scrolling to the elements works.
 <div id="padding"></div>
 <script>
@@ -60,74 +60,6 @@ function buttonWasClicked() {
 }
 </script>
 <script type="text/javascript">
-
-  function getCenterCoordinate(elem) {
-    var rect = elem.getClientRects()[0];
-    var x = rect.left + (rect.right - rect.left) / 2;
-    var y = rect.top + (rect.bottom - rect.top) / 2;
-    return new goog.math.Coordinate(x, y);
-  }
-
-  function testShadowRootIsElementClickable() {
-    // check isElementClickable works as expected on elements within a shadow
-    // DOM
-    var elemButton = document.querySelector("* /deep/ #button");
-    var elemText = document.querySelector("* /deep/ #textBox");
-
-    // scroll to the element
-    webdriver.chrome.getLocationInView(elemButton, true);
-    assertTrue(
-        "Button #button should be clickable",
-        webdriver.chrome.isElementClickable(elemButton,
-            getCenterCoordinate(elemButton)).clickable);
-    assertFalse(
-        "Textbox #textBox should not be clickable from #button's location",
-        webdriver.chrome.isElementClickable(elemText,
-            getCenterCoordinate(elemButton)).clickable);
-  }
-
-  function testShadowRootIsDisplayed() {
-    // check isDisplayed works as expected on elements within a shadow
-    // DOM
-    var elem = document.querySelector("* /deep/ #textBox");
-    assertTrue("Text box #textBox should be visible",
-        webdriver.chrome.isElementDisplayed(elem));
-    document.querySelector("#outerDiv").style.display="None";
-    try {
-      assertFalse(
-        "Text box #textBox should not be visible",
-        webdriver.chrome.isElementDisplayed(elem));
-    } finally {
-      document.querySelector("#outerDiv").style.display="";
-    }
-  }
-
-  function testShadowRootFindElement() {
-    // check FindElement works as expected on elements within a shadow
-    // DOM
-    var elemDiv = document.querySelector("* /deep/ #childDiv");
-    var elemButton = document.querySelector("* /deep/ #button");
-    assertEquals(
-        "webdriver.chrome.findElement didn't find the element #button",
-        elemButton,
-        webdriver.chrome.findElement({"id" : "button"}, elemDiv));
-  }
-
-  function testBotLocatorsFindElements() {
-    // webdriver.chrome.findElement depends on bot.locators.findElements.
-    // So check that bot.locators.findElements keeps working as expected
-    // with shadow roots
-    var elemDiv = document.querySelector("* /deep/ #childDiv");
-    var elemButton = document.querySelector("* /deep/ #button");
-    var elems = bot.locators.findElements({"id" : "button"}, elemDiv);
-    assertEquals("webdriver.chrome.findElements didn't find exactly 1 element for #button",
-        1,
-        elems.length);
-    assertEquals(
-        "webdriver.chrome.findElement didn't find the element button",
-        elemButton,
-        elems[0]);
-  }
 
 </script>
 </body>

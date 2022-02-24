@@ -64,9 +64,7 @@ matrix:
     - env: MARIONETTE=1 MOZ_HEADLESS=1 BZL="test --test_tag_filters=firefox //javascript/atoms/... //javascript/selenium-atoms/... //javascript/webdriver/..."
       <<: *java
       <<: *firefox-latest
-    - env: CHROME=1 BZL="test --test_tag_filters=chrome //javascript/atoms/... //javascript/selenium-atoms/... //javascript/webdriver/...  //javascript/chrome-driver/..."
-      <<: *java
-      <<: *chrome
+
     - env: TOXENV=flake8
       <<: *python
       python: 3.7
@@ -102,13 +100,7 @@ matrix:
     - env: CHROME=1 TASK=//rb:remote-chrome-test
       <<: *ruby
       <<: *chrome
-    - env: MARIONETTE=1 TASK=//rb:remote-firefox-test
-      <<: *ruby
-      <<: *firefox-latest
-    - env: TASK=//rb:docs
-      <<: *ruby
-    - env: TASK=//rb:lint
-      <<: *ruby
+
 install: ./scripts/travis/install.sh
 before_script: ./scripts/travis/before_script.sh
 script: travis_wait 60 ./scripts/travis/script.sh
