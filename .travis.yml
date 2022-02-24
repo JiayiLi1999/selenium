@@ -74,18 +74,6 @@ matrix:
     - env: BZL="test //py:unit"
       <<: *python
       python: 3.7
-    - env: CHROME=1 BZL="test //py:test-chrome"
-      <<: *python
-      <<: *chrome
-      python: 3.7
-    - env: MARIONETTE=1 BZL="test --jobs 1 //py:test-remote"
-      <<: *python
-      <<: *firefox-nightly
-      python: 3.7
-    - env: MARIONETTE=1 BZL="test //py:test-firefox"
-      <<: *python
-      <<: *firefox-nightly
-      python: 3.7
     - env: TASK=//rb:unit-test
       <<: *ruby
     - env: TASK=//rb:unit-test
