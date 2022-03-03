@@ -18,16 +18,32 @@
 package com.thoughtworks.selenium.webdriven;
 
 import static org.junit.Assert.fail;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
 import com.thoughtworks.selenium.SeleniumException;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import org.mockito.InOrder;
+import org.mockito.MockitoAnnotations;
 import org.openqa.selenium.WebDriver;
 
 @RunWith(JUnit4.class)
 public class TimerTest {
+
+  private SeleneseCommand<Object> command;
+
+  @Before
+  public void setup() {
+    command = mock(SeleneseCommand.class);
+    MockitoAnnotations.initMocks(this);
+  }
 
   @Test
   public void testCannotExecuteCommandsAfterStoppingTheTimer() {
@@ -60,8 +76,35 @@ public class TimerTest {
     timer.stop();
   }
 
+  @Test
+  public void testNoInteractionAfterStop() {
+    Timer timer = new Timer(250);
+    timer.stop();
+    try {
+      timer.run(command, null, new String[0]);
+      verifyNoInteractions(command);
+      fail();
+    } catch (IllegalStateException ex) {
+      // expected
+    }
+  }
+
+  @Test
+  public void testInteractionCommand() {
+    Timer timer = new Timer(10);
+    try {
+      timer.run(command, null, new String[0]);
+      InOrder inOrder = inOrder(command);
+      inOrder.verify(command).setDefaultTimeout(10);
+      inOrder.verify(command).apply(null, new String[0]);
+      verifyNoMoreInteractions(command);
+    } catch (SeleniumException e) {
+      timer.stop();
+    }
+  }
 
   class SeleneseCallable extends SeleneseCommand<Object> {
+
     final int waitFor;
 
     SeleneseCallable(int waitFor) {
